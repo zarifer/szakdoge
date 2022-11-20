@@ -5,22 +5,22 @@ import numpy as np
 import pandas as pd
 import os
 
-files = os.listdir('/home/nimda/Documents/ml-sample-pack-small/malware/arm/')
-exceptions = os.listdir('/home/nimda/Documents/outputs/malware_sol/malware_arm_sol')
+files = os.listdir('/root/kitkat/kitti-additional-samples/malware')
+exceptions = os.listdir('/root/kitkat/szakdoge/malware_sol')
 
 for file in files:
 	if file in exceptions:
 		continue
 		
-	os.mkdir(f'/home/nimda/Documents/outputs/malware_sol/malware_arm_sol/{file}')
+	os.mkdir(f'/root/kitkat/szakdoge/malware_sol/{file}')
 	
 	try:
-		p = angr.Project('/home/nimda/Documents/ml-sample-pack-small/malware/arm/'+file, load_options={'auto_load_libs':False})
+		p = angr.Project('/root/kitkat/kitti-additional-samples/malware/'+file, load_options={'auto_load_libs':False})
 		cfg = p.analyses.CFGFast()
 		G = cfg.graph
 		
-		with open(f'/home/nimda/Documents/outputs/malware_sol/malware_arm_sol/{file}/running_error.txt', 'w') as fe:
-			with open(f'/home/nimda/Documents/outputs/malware_sol/malware_arm_sol/{file}/feature_vector.txt', 'w') as f:
+		with open(f'/root/kitkat/szakdoge/malware_sol/{file}/running_error.txt', 'w') as fe:
+			with open(f'/root/kitkat/szakdoge/malware_sol/{file}/feature_vector.txt', 'w') as f:
 				sys.stdout = fe
 
 				#Number of edges in the graph
@@ -120,7 +120,7 @@ for file in files:
 				f.write(str(np.std(list(dc.values())))+"\n")
 
 	except Exception as e:
-		with open(f'/home/nimda/Documents/outputs/malware_sol/malware_arm_sol/{file}/exception.txt', 'w') as fem:
+		with open(f'/root/kitkat/szakdoge/malware_sol/{file}/exception.txt', 'w') as fem:
 			fem.write(str(e))
 		continue
 			

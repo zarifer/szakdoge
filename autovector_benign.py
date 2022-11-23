@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import os
 
-files = os.listdir('/root/kitkat/kitti-additinal-samples/benign/')
+files = os.listdir('/root/kitkat/kitti-additional-samples/benign/')
 exceptions = os.listdir('/root/kitkat/szakdoge/benign_sol')
 
 for file in files:
@@ -15,7 +15,7 @@ for file in files:
 	os.mkdir(f'/root/kitkat/szakdoge/benign_sol/{file}')
 	
 	try:
-		p = angr.Project('/root/kitkat/kitti-additinal-samples/benign/'+file, load_options={'auto_load_libs':False})
+		p = angr.Project('/root/kitkat/kitti-additional-samples/benign/'+file, load_options={'auto_load_libs':False})
 		cfg = p.analyses.CFGFast()
 		G = cfg.graph
 		os.mkdir(f'/root/kitkat/szakdoge/benign_sol/{file}')
